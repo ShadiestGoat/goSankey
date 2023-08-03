@@ -1,0 +1,56 @@
+[[Config]]
+ConnectionOpacity=20
+Background=#0D1117
+; BackgroundIsLight=No
+Width=1920
+Height=1080
+
+[[Nodes]]
+[li]
+Title=LinkedIn
+Step=0
+Color=#0F5DA0
+
+[cs]
+Title=Company Site
+Step=0
+color=#f2cc60
+
+[indeed]
+Title= Indeed
+Step=0
+Color=#315FAE
+
+[bad]
+title=Rejected
+Step=99
+Color=#ff7b72
+
+[ghost]
+title=Ghosted
+Step=99
+color=#B49BB9
+
+[int1]
+tiTLe=  Interview
+Step=1
+
+[int2]
+tiTLe=  Interview 2
+Step=2
+
+
+[[Connections]]
+; Bad response
+li -> bad: 18
+cs -> bad: 7
+; Interviews
+li -> int1: 2
+cs -> int1: 1
+int1 -> bad: 2
+int1 -> int2: 1
+int2 -> bad: 1
+; Ghosting...
+li -> ghost: 57
+cs -> ghost: 8
+indeed -> ghost: 1
