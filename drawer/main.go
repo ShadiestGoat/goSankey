@@ -195,7 +195,7 @@ func Draw(c *common.Chart) draw.Image {
 	nodeToUsedYOut := map[*common.Node]int{}
 	nodeToUsedYIn := map[*common.Node]int{}
 
-	face := fontNormal.fetchFace(28)
+	face := fontNormal.fetchFace(float64(c.Config.FontSize))
 
 	for _, conn := range c.Connections {
 		ogLoc := nodeLocations[conn.Origin]

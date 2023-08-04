@@ -20,6 +20,7 @@ func config(inp []string) *common.Config {
 		HorzTextPad: 15,
 		TextLinePad: 5,
 		ConnectionOpacity: 0.2,
+		FontSize: 28,
 	}
 
 	for _, l := range inp {
@@ -100,6 +101,12 @@ func config(inp []string) *common.Config {
 				continue
 			}
 			c.TextLinePad = out
+		case "fontsize", "font_size", "font size":
+			out, err := strconv.Atoi(v)
+			if err != nil {
+				continue
+			}
+			c.FontSize = out
 		default:
 			continue
 		}

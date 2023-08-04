@@ -27,6 +27,7 @@ As you may have noticed, the config file is a bit special. This was an intention
   - In here, both the key and the value are whitespace trimmed
   - Also, the key is case insensitive
   - If 2 of the same key are present, the later one is used 
+  - Keys are sometimes documented with *PascalCase*, these keys are also available with *snake_case* and *with spaces*
   - Values can take up multiple *types*:
     - `INT` - Integer
     - `COLOR` - A hexadecimal color.

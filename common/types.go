@@ -36,6 +36,8 @@ type Config struct {
 
 	HorzTextPad int
 	TextLinePad int
+
+	FontSize int
 }
 
 type Color struct {
