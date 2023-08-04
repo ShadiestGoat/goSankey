@@ -23,6 +23,19 @@ type Config struct {
 	BackgroundIsLight bool
 
 	OutputName string
+
+	DrawBorder bool
+	BorderColor *Color
+	BorderSize int
+
+	BorderPadding float64
+	PadLeft float64
+	NodeWidth float64
+	
+	VertSpaceNodes float64
+
+	HorzTextPad int
+	TextLinePad int
 }
 
 type Color struct {

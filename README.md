@@ -61,7 +61,16 @@ The following values are configured:
 | Background | COLOR | The color of the background | #F6F8FA |
 | Width | INT | The width, in pixels, of the output image | If height is present, then a value that formats the image as a `16:9` ratio image, otherwise, 1920 |
 | Height | INT | The height, in pixels, of the output image | If width is present, then a value that formats the image as a `16:9` ratio image, otherwise, 1080 |
-| OutputName | TEXT | The path to the output image. If empty, then a 'dry run' is performed. Note: no matter the extension, teh app will always write a PNG into it! | Empty |
+| OutputName | TEXT | The path to the output image. If empty, then a 'dry run' is performed. Note: no matter the extension, the app will always write a PNG into it! | Empty |
+| DrawBorder | BOOL | If true, it will draw a border around the entire image (see BorderSize and BorderColor) | Yes |
+| BorderColor | COLOR | What color should the border be? | Random |
+| BorderSize | INT | The size, in pixels, of the border (note: this does not affect any positioning) | 2 |
+| BorderPadding | INT | A percentage value showing how much padding there should be around the entire image (affects positioning, has nothing to do with DrawBorder) | 2 |
+| NodeWidth | INT | A percentage value indicating the width of the width of the nodes | 2 |
+| PadLeft | INT | A percentage value indicating how much extra padding there should be on the left (used in case the left tiles are just so big) | 1 |
+| VertSpaceNodes | INT | A percentage value indicating how much height in total the nodes should take | 85 |
+| HorizontalTextPad | INT | The amount, in pixels, that text boxes should be padded with horizontally | 15 |
+| TextLinePad | The amount, in pixels, that each line of a text should pad below itself | 5 |
 
 ### Section - Nodes
 This section describes nodes, (ie. the bars). This section's special mechanic is that each node is described with an ID, surrounded by `[]`:

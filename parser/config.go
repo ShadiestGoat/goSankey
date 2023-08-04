@@ -16,7 +16,7 @@ func config(inp []string) *common.Config {
 		opt, v := parseOpt(l)
 
 		switch opt {
-		case "connectionopacity", "connection_opacity":
+		case "connectionopacity", "connection_opacity", "connection opacity":
 			out, err := strconv.Atoi(v)
 			if err != nil {
 				continue
@@ -25,7 +25,7 @@ func config(inp []string) *common.Config {
 				continue
 			}
 			c.ConnectionOpacity = float64(out)/100
-		case "outputname", "output_name":
+		case "outputname", "output_name", "output name":
 			c.OutputName = strings.TrimSpace(v)
 		case "background":
 			c.Background = parseColor(v)
@@ -41,6 +41,55 @@ func config(inp []string) *common.Config {
 				continue
 			}
 			c.Height = out
+		case "drawborder", "draw_border", "draw border":
+			o := parseBool(v)
+			if o != nil {
+				c.DrawBorder = *o
+			}
+		case "bordercolor", "border_color", "border color":
+			c.BorderColor = parseColor(v)
+		case "bordersize", "border_size", "border size":
+			out, err := strconv.Atoi(v)
+			if err != nil {
+				continue
+			}
+			c.BorderSize = out
+		case "borderpadding", "border_padding", "border padding":
+			out, err := strconv.Atoi(v)
+			if err != nil {
+				continue
+			}
+			c.BorderPadding = float64(out)/100
+		case "nodewidth", "node_width", "node width":
+			out, err := strconv.Atoi(v)
+			if err != nil {
+				continue
+			}
+			c.NodeWidth = float64(out)/100
+		case "padleft", "pad_left", "pad left":
+			out, err := strconv.Atoi(v)
+			if err != nil {
+				continue
+			}
+			c.PadLeft = float64(out)/100
+		case "vertspacenodes", "vert_space_nodes", "vert space nodes":
+			out, err := strconv.Atoi(v)
+			if err != nil {
+				continue
+			}
+			c.VertSpaceNodes = float64(out)/100
+		case "horizontaltextpad", "horizontal_text_pad", "horizontal text pad":
+			out, err := strconv.Atoi(v)
+			if err != nil {
+				continue
+			}
+			c.HorzTextPad = out
+		case "textlinepad", "text_line_pad", "text line pad":
+			out, err := strconv.Atoi(v)
+			if err != nil {
+				continue
+			}
+			c.TextLinePad = out
 		default:
 			continue
 		}
