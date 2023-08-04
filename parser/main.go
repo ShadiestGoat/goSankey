@@ -8,8 +8,8 @@ import (
 	"github.com/shadiestgoat/goSankey/common"
 )
 
-func Parse() *common.Chart {
-	out, _ := os.ReadFile("config.sankey")
+func Parse(file string) (*common.Chart, error) {
+	out, _ := os.ReadFile(file)
 	
 	var sections = map[string][]string{}
 
@@ -41,19 +41,19 @@ func Parse() *common.Chart {
 	c.Config = config(sections["config"])
 
 	if c.Config == nil {
-		return nil
+		return nil, nil
 	}
 
 	nodes, steps := nodes(sections["nodes"], c.Config)
 
 	if len(nodes) == 0 {
-		return nil
+		return nil, nil
 	}
 
 	c.Steps = steps
 	c.Connections = connections(sections["connections"], nodes)
 
-	return c
+	return c, nil
 }
 
 
