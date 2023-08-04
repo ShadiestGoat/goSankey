@@ -71,7 +71,7 @@ The following values are configured:
 | PadLeft | INT | A percentage value indicating how much extra padding there should be on the left (used in case the left tiles are just so big) | 1 |
 | VertSpaceNodes | INT | A percentage value indicating how much height in total the nodes should take | 85 |
 | HorizontalTextPad | INT | The amount, in pixels, that text boxes should be padded with horizontally | 15 |
-| TextLinePad | The amount, in pixels, that each line of a text should pad below itself | 5 |
+| TextLinePad | INT | The amount, in pixels, that each line of a text should pad below itself | 5 |
 
 ### Section - Nodes
 This section describes nodes, (ie. the bars). This section's special mechanic is that each node is described with an ID, surrounded by `[]`:
