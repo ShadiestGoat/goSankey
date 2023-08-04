@@ -31,11 +31,11 @@ Step=99
 color=#B49BB9
 
 [int1]
-tiTLe=  Interview
+Title=Interview
 Step=1
 
 [int2]
-tiTLe=  Interview 2
+Title=2nd Interview
 Step=2
 
 
