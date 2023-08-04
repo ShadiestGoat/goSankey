@@ -89,3 +89,7 @@ Each ID is a sub-section of it's own, which means it doesn't share any keys with
 This section is the most special. Each line follows the following format:
 `{ORIGIN ID} -> {DESTINATION ID}: {AMOUNT}`
 This section indicates the connections between nodes & their amount.
+
+## Changing font
+
+Don't like a font I'm using? Change it. Simply create a folder called "resources" in the working directory. In that directory, place the fonts you want to be used (alphabetically the first valid file will be the main font, with the rest being fallbacks)
