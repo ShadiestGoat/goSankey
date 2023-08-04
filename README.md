@@ -103,3 +103,7 @@ This section indicates the connections between nodes & their amount.
 ## Changing font
 
 Don't like a font I'm using? Change it. Simply create a folder called "resources" in the working directory. In that directory, place the fonts you want to be used (alphabetically the first valid file will be the main font, with the rest being fallbacks)
+
+## Example
+
+![Example Output](https://github.com/ShadiestGoat/goSankey/blob/main/example.png?raw=true)
