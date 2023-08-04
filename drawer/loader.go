@@ -1,6 +1,8 @@
 package drawer
 
 import (
+	"embed"
+	"fmt"
 	"os"
 	"path"
 
@@ -20,10 +22,15 @@ type cFont struct {
 	fonts    []*cFontInfo
 }
 
-func init() {
+func Load(res *embed.FS) error {
 	dir, err := os.ReadDir("resources")
-	if err != nil {
-		return
+	useEmbed := false
+	if err != nil || len(dir) == 0 {
+		dir, err = res.ReadDir("resources")
+		if err != nil {
+			return err
+		}
+		useEmbed = true
 	}
 
 	for _, f := range dir {
@@ -33,9 +40,18 @@ func init() {
 		}
 		path := path.Join("resources", name)
 		ext := name[len(name)-3:]
-		b, err := os.ReadFile(path)
-		if err != nil {
-			continue
+
+		var b []byte
+		if useEmbed {
+			b, err = res.ReadFile(path)
+			if err != nil {
+				return err
+			}
+		} else {
+			b, err = os.ReadFile(path)
+			if err != nil {
+				return err
+			}
 		}
 		
 		if ext == "otf" {
@@ -55,7 +71,13 @@ func init() {
 				TTF: _sf,
 			})
 		} else {
-			panic("Couldn't load a '" + ext + "'!")
+			continue
 		}
 	}
+
+	if len(fontNormal.fonts) == 0 {
+		return fmt.Errorf("couldn't load any fonts")
+	}
+
+	return nil
 }

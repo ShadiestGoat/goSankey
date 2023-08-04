@@ -55,6 +55,8 @@ func main() {
 			return
 		}
 
+		log.FatalIfErr(drawer.Load(&res), "loading fonts")
+		
 		img := drawer.Draw(c)
 		
 		f, err := os.Create(c.Config.OutputName)
