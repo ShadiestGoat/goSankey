@@ -56,7 +56,7 @@ func (m *MultiError) Optional() *MultiError {
 		}
 	}
 
-	return m
+	return nil
 }
 
 func Parse(file string) (*common.Chart, error) {
