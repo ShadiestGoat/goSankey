@@ -1,6 +1,7 @@
 package main
 
 import (
+	"image/png"
 	"os"
 	"path"
 
@@ -47,7 +48,17 @@ func main() {
 		}
 
 		c, err := parser.Parse(confName)
-		drawer.Draw(c)
-	}
+		log.FatalIfErr(err, "parsing the config file '%s'", confName)
+		log.Success("Loaded config!")
+		if c.Config.OutputName == "" {
+			log.Success("Dry run complete!")
+			return
+		}
 
+		img := drawer.Draw(c)
+		
+		f, err := os.Create(c.Config.OutputName)
+		log.FatalIfErr(err, "creating output file")
+		png.Encode(f,img)
+	}
 }

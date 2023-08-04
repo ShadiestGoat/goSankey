@@ -4,9 +4,7 @@ import (
 	"fmt"
 	"image"
 	"image/color"
-	"image/png"
 	"math"
-	"os"
 	"sort"
 	"strings"
 
@@ -331,9 +329,6 @@ func Draw(c *common.Chart) draw.Image {
 
 		minY = textBox(img, face, l.Color, l.Txt, l.Y, l.X0, l.X1, l.Justify)
 	}
-
-	f, _ := os.Create("test.png")
-	png.Encode(f, img)
 
 	return img
 }

@@ -3,6 +3,7 @@ package parser
 import (
 	"math"
 	"strconv"
+	"strings"
 
 	"github.com/shadiestgoat/colorutils"
 	"github.com/shadiestgoat/goSankey/common"
@@ -24,6 +25,8 @@ func config(inp []string) *common.Config {
 				continue
 			}
 			c.ConnectionOpacity = float64(out)/100
+		case "outputname", "output_name":
+			c.OutputName = strings.TrimSpace(v)
 		case "background":
 			c.Background = parseColor(v)
 		case "width":

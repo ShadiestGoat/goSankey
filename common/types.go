@@ -21,6 +21,8 @@ type Config struct {
 	ConnectionOpacity float64
 	Background *Color
 	BackgroundIsLight bool
+
+	OutputName string
 }
 
 type Color struct {

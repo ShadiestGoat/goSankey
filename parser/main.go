@@ -1,6 +1,8 @@
 package parser
 
 import (
+	"errors"
+	"fmt"
 	"os"
 	"strconv"
 	"strings"
@@ -8,8 +10,68 @@ import (
 	"github.com/shadiestgoat/goSankey/common"
 )
 
+type MultiError struct {
+	Errors []error
+}
+
+func (m *MultiError) Error() string {
+	if len(m.Errors) == 0 {
+		return ""
+	}
+	if len(m.Errors) == 1 {
+		return m.Errors[0].Error()
+	}
+
+	str := "\n" + m.PureErrors()
+
+	return str[:len(str)-1]
+}
+
+func (m *MultiError) PureErrors() string {
+	str := ""
+
+	for _, err := range m.Errors {
+		if err == nil {
+			continue
+		}
+
+		if errP, ok := err.(*MultiError); ok {
+			str += errP.PureErrors() + "\n"
+		} else {
+			str += "- " + err.Error() + "\n"
+		}
+	}
+
+	if str == "" {
+		return ""
+	}
+
+	return str[:len(str)-1]
+}
+
+func (m *MultiError) Optional() *MultiError {
+	for _, v := range m.Errors {
+		if v != nil {
+			return m
+		}
+	}
+
+	return m
+}
+
 func Parse(file string) (*common.Chart, error) {
-	out, _ := os.ReadFile(file)
+	errMgr := &MultiError{Errors: []error{}}
+
+	out, err := os.ReadFile(file)
+	if err != nil {
+		if errors.Is(err, os.ErrNotExist) {
+			errMgr.Errors = append(errMgr.Errors, fmt.Errorf("file '%s' could not be found", file))
+		} else {
+			errMgr.Errors = append(errMgr.Errors, err)
+		}
+
+		return nil, errMgr
+	}
 	
 	var sections = map[string][]string{}
 
@@ -39,21 +101,19 @@ func Parse(file string) (*common.Chart, error) {
 	c := &common.Chart{}
 
 	c.Config = config(sections["config"])
-
-	if c.Config == nil {
-		return nil, nil
-	}
-
-	nodes, steps := nodes(sections["nodes"], c.Config)
+	nodes, steps, err := nodes(sections["nodes"], c.Config)
+	errMgr.Errors = append(errMgr.Errors, err)
 
 	if len(nodes) == 0 {
-		return nil, nil
+		errMgr.Errors = append(errMgr.Errors, fmt.Errorf("no nodes were loaded"))
+		return nil, errMgr
 	}
 
 	c.Steps = steps
-	c.Connections = connections(sections["connections"], nodes)
+	c.Connections, err = connections(sections["connections"], nodes)
+	errMgr.Errors = append(errMgr.Errors, err)
 
-	return c, nil
+	return c, errMgr.Optional()
 }
 
 

@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"fmt"
 	"sort"
 	"strconv"
 	"strings"
@@ -10,7 +11,8 @@ import (
 )
 
 // Returns a map of id -> node & a step array for the nodes
-func nodes(inp []string, conf *common.Config) (map[string]*common.Node, [][]*common.Node) {
+func nodes(inp []string, conf *common.Config) (map[string]*common.Node, [][]*common.Node, error) {
+	errors := &MultiError{}
 	nodeIds := []string{}
 	nodeIndex := map[string]int{}
 	nodeMap := map[string][]string{}
@@ -45,6 +47,7 @@ func nodes(inp []string, conf *common.Config) (map[string]*common.Node, [][]*com
 	for _, nID := range nodeIds {
 		n := node(nID, nodeMap[nID], conf)
 		if n == nil {
+			errors.Errors = append(errors.Errors, fmt.Errorf("node '%s' didn't have a STEP included", nID))
 			continue
 		}
 
@@ -79,7 +82,7 @@ func nodes(inp []string, conf *common.Config) (map[string]*common.Node, [][]*com
 		}
 	}
 	
-	return nodes, steps
+	return nodes, steps, errors.Optional()
 }
 
 func node(id string, lines []string, conf *common.Config) *common.Node {

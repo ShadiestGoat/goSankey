@@ -61,6 +61,7 @@ The following values are configured:
 | Background | COLOR | The color of the background | #F6F8FA |
 | Width | INT | The width, in pixels, of the output image | If height is present, then a value that formats the image as a `16:9` ratio image, otherwise, 1920 |
 | Height | INT | The height, in pixels, of the output image | If width is present, then a value that formats the image as a `16:9` ratio image, otherwise, 1080 |
+| OutputName | TEXT | The path to the output image. If empty, then a 'dry run' is performed | Empty |
 
 ### Section - Nodes
 This section describes nodes, (ie. the bars). This section's special mechanic is that each node is described with an ID, surrounded by `[]`:
