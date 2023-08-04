@@ -10,7 +10,17 @@ import (
 )
 
 func config(inp []string) *common.Config {
-	c := &common.Config{}
+	c := &common.Config{
+		DrawBorder: true,
+		BorderSize: 3,
+		BorderPadding: 0.02,
+		NodeWidth: 0.02,
+		PadLeft: 0.01,
+		VertSpaceNodes: 0.85,
+		HorzTextPad: 15,
+		TextLinePad: 5,
+		ConnectionOpacity: 0.2,
+	}
 
 	for _, l := range inp {
 		opt, v := parseOpt(l)
@@ -107,6 +117,13 @@ func config(inp []string) *common.Config {
 		c.BackgroundIsLight = l > 0.5
 	}
 
+	r, g, b := colorutils.NewContrastColor(8, c.BackgroundIsLight, colorutils.RelativeLuminosity(c.Background.R, c.Background.G, c.Background.B))
+	c.BorderColor = &common.Color{
+		R: r,
+		G: g,
+		B: b,
+	}
+
 
 	if c.Width == 0 {
 		if c.Height == 0 {
@@ -121,9 +138,6 @@ func config(inp []string) *common.Config {
 		} else {
 			c.Height = int(math.Round(9 * float64(c.Width)/16))
 		}
-	}
-	if c.ConnectionOpacity == 0 {
-		c.ConnectionOpacity = 0.4
 	}
 
 	return c

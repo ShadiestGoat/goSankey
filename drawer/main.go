@@ -16,14 +16,6 @@ import (
 	"gonum.org/v1/plot/vg"
 )
 
-const GENERAL_PAD float64 = 0.02
-const NODE_WIDTH = 0.01
-const PAD_LEFT = 0.01
-const VERT_SPACE_NODES = 0.85
-
-const HORZ_TEXT_PAD = 15
-const VERT_TEXT_PAD = 5
-
 func drawRect(img draw.Image, c color.Color, rect image.Rectangle) {
 	draw.Draw(img, rect, image.NewUniform(c), image.Point{}, draw.Over)
 }
@@ -68,14 +60,14 @@ const (
 
 // Draw text within a specified width, where y0 is the top of textbox, nothing goes above it.
 // returns the bottom y level
-func textBox(img draw.Image, face *multiface.Face, c color.Color, str string, y0 int, x0 int, x1 int, just JustifyMode) int {
+func textBox(img draw.Image, face *multiface.Face, c color.Color, str string, y0 int, x0 int, x1 int, just JustifyMode, horzPad int, vertPad int) int {
 	lines := []string{}
 	if x0 > x1 {
 		x0, x1 = x1, x0
 	}
 	
-	x0 += HORZ_TEXT_PAD
-	x1 -= HORZ_TEXT_PAD
+	x0 += horzPad
+	x1 -= horzPad
 	width := x1 - x0
 	
 	linesRaw := strings.Split(str, "\n")
@@ -124,7 +116,7 @@ func textBox(img draw.Image, face *multiface.Face, c color.Color, str string, y0
 
 		y += b.Dy()
 		addLabel(img, face, x0 + pad, y, l, c)
-		y += VERT_TEXT_PAD
+		y += vertPad
 	}
 
 	return y
@@ -149,13 +141,13 @@ func Draw(c *common.Chart) draw.Image {
 
 	labels := []*labelInfo{}
 	
-	sidePadV := round(float64(c.Config.Width) * GENERAL_PAD)
-	vertPadV := round(float64(c.Config.Height) * GENERAL_PAD)
+	sidePadV := round(float64(c.Config.Width) * c.Config.BorderPadding)
+	vertPadV := round(float64(c.Config.Height) * c.Config.BorderPadding)
 	width :=  float64(c.Config.Width -  sidePadV * 2)
 	height := float64(c.Config.Height - vertPadV * 2)
-	leftPadV := round(width * PAD_LEFT)
-	nodeW := round(width*NODE_WIDTH)
-	nodeAvailableH := height * VERT_SPACE_NODES
+	leftPadV := round(width * c.Config.PadLeft)
+	nodeW := round(width*c.Config.NodeWidth)
+	nodeAvailableH := height * c.Config.VertSpaceNodes
 
 	horzPad := calcPad(round(width - float64(leftPadV)), nodeW*len(c.Steps), len(c.Steps))
 	
@@ -327,7 +319,7 @@ func Draw(c *common.Chart) draw.Image {
 			l.Y = minY
 		}
 
-		minY = textBox(img, face, l.Color, l.Txt, l.Y, l.X0, l.X1, l.Justify)
+		minY = textBox(img, face, l.Color, l.Txt, l.Y, l.X0, l.X1, l.Justify, c.Config.HorzTextPad, c.Config.TextLinePad)
 	}
 
 	return img
