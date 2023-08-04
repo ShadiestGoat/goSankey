@@ -11,7 +11,7 @@ import (
 func connections(inp []string, nodes map[string]*common.Node) ([]*common.Connection, error) {
 	conns := map[string]*common.Connection{}
 	connIds := []string{}
-	errMgr := &MultiError{}
+	errMgr := MultiError{}
 
 	for _, l := range inp {
 		out := strings.SplitN(l, "->", 2)
