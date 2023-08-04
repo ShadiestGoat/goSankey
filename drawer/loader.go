@@ -17,25 +17,21 @@ type cFontInfo struct {
 }
 
 type cFont struct {
-	fontName string
 	fonts    []*cFontInfo
 }
 
-func initFont(fontName string, fontDir string, res *cFont) {
-	baseDir := path.Join("resources", fontDir)
-	dir, err := os.ReadDir(baseDir)
+func init() {
+	dir, err := os.ReadDir("resources")
 	if err != nil {
 		return
 	}
-
-	res.fontName = fontName
 
 	for _, f := range dir {
 		name := f.Name()
 		if len(name) < 4 {
 			continue
 		}
-		path := path.Join("resources", fontDir, name)
+		path := path.Join("resources", name)
 		ext := name[len(name)-3:]
 		b, err := os.ReadFile(path)
 		if err != nil {
@@ -47,7 +43,7 @@ func initFont(fontName string, fontDir string, res *cFont) {
 			if err != nil {
 				continue
 			}
-			res.fonts = append(res.fonts, &cFontInfo{
+			fontNormal.fonts = append(fontNormal.fonts, &cFontInfo{
 				SFNT: _sf,
 			})
 		} else if ext == "ttf" {
@@ -55,15 +51,11 @@ func initFont(fontName string, fontDir string, res *cFont) {
 			if err != nil {
 				continue
 			}
-			res.fonts = append(res.fonts, &cFontInfo{
+			fontNormal.fonts = append(fontNormal.fonts, &cFontInfo{
 				TTF: _sf,
 			})
 		} else {
 			panic("Couldn't load a '" + ext + "'!")
 		}
 	}
-}
-
-func init() {
-	initFont("normal font", "grotesk", fontNormal)
 }

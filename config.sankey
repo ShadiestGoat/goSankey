@@ -1,7 +1,6 @@
 [[Config]]
 ConnectionOpacity=20
 Background=#0D1117
-; BackgroundIsLight=No
 Width=1920
 Height=1080
 

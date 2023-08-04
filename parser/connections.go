@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"strings"
 
-	"shadygoat.eu/goSankey/common"
+	"github.com/shadiestgoat/goSankey/common"
 )
 
 func connections(inp []string, nodes map[string]*common.Node) []*common.Connection {

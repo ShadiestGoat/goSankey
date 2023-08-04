@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/shadiestgoat/colorutils"
-	"shadygoat.eu/goSankey/common"
+	"github.com/shadiestgoat/goSankey/common"
 )
 
 // Returns a map of id -> node & a step array for the nodes

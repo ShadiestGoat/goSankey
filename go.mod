@@ -1,4 +1,4 @@
-module shadygoat.eu/goSankey
+module github.com/shadiestgoat/goSankey
 
 go 1.20
 

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"shadygoat.eu/goSankey/drawer"
-	"shadygoat.eu/goSankey/parser"
+	"github.com/shadiestgoat/goSankey/drawer"
+	"github.com/shadiestgoat/goSankey/parser"
 )
 
 func main() {

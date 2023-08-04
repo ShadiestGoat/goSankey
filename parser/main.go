@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"shadygoat.eu/goSankey/common"
+	"github.com/shadiestgoat/goSankey/common"
 )
 
 func Parse() *common.Chart {

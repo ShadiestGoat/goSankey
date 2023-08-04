@@ -5,13 +5,11 @@ import (
 	"strconv"
 
 	"github.com/shadiestgoat/colorutils"
-	"shadygoat.eu/goSankey/common"
+	"github.com/shadiestgoat/goSankey/common"
 )
 
 func config(inp []string) *common.Config {
 	c := &common.Config{}
-
-	bgLightIsSet := false
 
 	for _, l := range inp {
 		opt, v := parseOpt(l)
@@ -28,12 +26,6 @@ func config(inp []string) *common.Config {
 			c.ConnectionOpacity = float64(out)/100
 		case "background":
 			c.Background = parseColor(v)
-		case "backgroundislight", "background_is_light":
-			out := parseBool(v)
-			if out != nil {
-				c.BackgroundIsLight = *out
-				bgLightIsSet = true
-			}
 		case "width":
 			out, err := strconv.Atoi(v)
 			if err != nil {
@@ -58,13 +50,11 @@ func config(inp []string) *common.Config {
 			B: 250,
 		}
 		c.BackgroundIsLight = true
-		bgLightIsSet = true
-	}
-
-	if !bgLightIsSet {
+	} else {
 		_, _, l := colorutils.RGBToHSL(c.Background.R, c.Background.G, c.Background.B)
 		c.BackgroundIsLight = l > 0.5
 	}
+
 
 	if c.Width == 0 {
 		if c.Height == 0 {

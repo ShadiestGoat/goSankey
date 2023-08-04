@@ -11,12 +11,11 @@ import (
 	"strings"
 
 	"github.com/AndreKR/multiface"
+	"github.com/shadiestgoat/goSankey/common"
 	"golang.org/x/image/draw"
 	"gonum.org/v1/plot/font"
 	"gonum.org/v1/plot/tools/bezier"
 	"gonum.org/v1/plot/vg"
-
-	"shadygoat.eu/goSankey/common"
 )
 
 const GENERAL_PAD float64 = 0.02
